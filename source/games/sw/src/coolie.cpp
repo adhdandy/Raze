@@ -520,16 +520,7 @@ int SetupCoolie(DSWActor* actor)
 
 int NewCoolg(DSWActor*);
 int SpawnCoolg(DSWActor* actor)
-{
-    // Don't do a ghost every time
-    if (RandomRange(1000) > 700 || Skill < MinEnemySkill - 1)
-    {
-        return(0);
-    }
-
-    NewCoolg(actor);
-    PlaySpriteSound(actor,attr_extra1,v3df_follow);
-
+{   // Never spawn a ghost
     return 0;
 }
 

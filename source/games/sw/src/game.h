@@ -582,7 +582,7 @@ enum
     HEALTH_NINJA             = 40  ,
     HEALTH_RED_NINJA         = 160 ,
     HEALTH_COOLIE            = 120 ,
-    HEALTH_COOLIE_GHOST      = 65  ,
+    HEALTH_COOLIE_GHOST      = 0  ,
     HEALTH_SKEL_PRIEST       = 90  ,
     HEALTH_GORO              = 200 ,
     HEALTH_HORNET            = 4   ,

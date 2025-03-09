@@ -8917,7 +8917,7 @@ void SetMineStuck(DSWActor* actor)
     actor->user.Flags |= (SPR_BOUNCE);
     // not yet active for 1 sec
     actor->user.Flags &= ~(SPR_ACTIVE);
-    actor->user.WaitTics = SEC(3);
+    actor->user.WaitTics = SEC(1);
     //actor->spr.cstat |= (CSTAT_SPRITE_BLOCK|CSTAT_SPRITE_BLOCK_HITSCAN);
     actor->spr.cstat |= (CSTAT_SPRITE_BLOCK_HITSCAN);
     actor->user.Counter = 0;
