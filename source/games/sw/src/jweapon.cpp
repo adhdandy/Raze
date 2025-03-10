@@ -1395,7 +1395,7 @@ int InitChemBomb(DSWActor* actor)
         actorNew->vel.X = 0;
         actorNew->vel.Z = 0;
         // Smoke will come out for this many seconds
-        actorNew->user.WaitTics = 40*120;
+        actorNew->user.WaitTics = 20*120;
     }
     else
     {
