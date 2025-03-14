@@ -42,13 +42,13 @@ Prepared for public release: 03/28/2005 - Charlie Wiederhold, 3D Realms
 
 // weapon
 DAMAGE_ENTRY(WPN_FIST,            InitWeaponFist,       10,    40,   0,  -1, -1, -1)
-DAMAGE_ENTRY_WPN(WPN_STAR,        InitWeaponStar,        5,    10,   0,  99,  3, -1,  9, -1)
+DAMAGE_ENTRY_WPN(WPN_STAR,        InitWeaponStar,        15,    15,   0,  99,  3, -1,  9, -1)
 DAMAGE_ENTRY_WPN(WPN_SHOTGUN,     InitWeaponShotgun,     4,     4,   0,  52,  1, -1,  8, 24)
 DAMAGE_ENTRY_WPN(WPN_UZI,         InitWeaponUzi,         5,     7,   0, 200,  1, -1,  50, 50)
 DAMAGE_ENTRY_WPN(WPN_MICRO,       InitWeaponMicro,      15,    30,   0,  50,  1, -1,  5, 5)
-DAMAGE_ENTRY_WPN(WPN_GRENADE,     InitWeaponGrenade,    15,    30,   0,  50,  1, -1,  6, 8)
+DAMAGE_ENTRY_WPN(WPN_GRENADE,     InitWeaponGrenade,    20,    30,   0,  50,  1, -1,  6, 8)
 DAMAGE_ENTRY_WPN(WPN_MINE,        InitWeaponMine,        5,    10,   0,  20,  1, -1,  5, -1)
-DAMAGE_ENTRY_WPN(WPN_RAIL,        InitWeaponRail,       40,    60,   0,  20,  1, -1,  10, 10)
+DAMAGE_ENTRY_WPN(WPN_RAIL,        InitWeaponRail,       50,    50,   0,  40,  1, -1,  10, 10)
 DAMAGE_ENTRY_WPN(WPN_HOTHEAD,     InitWeaponHothead,    10,    25,   0,  80,  1, -1,  30, 60)
 DAMAGE_ENTRY_WPN(WPN_HEART,       InitWeaponHeart,      75,   100,   0,   5,  1, -1,  1, 6)
 
@@ -73,7 +73,7 @@ DAMAGE_ENTRY(DMG_FIREBALL_EXP,    nullptr,                -1,    -1,   1000, -1,
 DAMAGE_ENTRY(DMG_NAPALM_EXP,      nullptr,                70,    80,   3200, -1, -1, -1)
 DAMAGE_ENTRY(DMG_SKULL_EXP,       nullptr,                50,    65,   4500, -1, -1, -1)
 DAMAGE_ENTRY(DMG_BASIC_EXP,       nullptr,                13,    22,   1000, -1, -1, -1)
-DAMAGE_ENTRY(DMG_GRENADE_EXP,     nullptr,                100,  140,   4500, -1, -1, -1)
+DAMAGE_ENTRY(DMG_GRENADE_EXP,     nullptr,                110,  130,   4500, -1, -1, -1)
 DAMAGE_ENTRY(DMG_MINE_EXP,        nullptr,                110,  110,   1600, -1, -1, -1)
 DAMAGE_ENTRY(DMG_MINE_SHRAP,      nullptr,                18,    27,      0, -1, -1, -1)
 DAMAGE_ENTRY(DMG_MICRO_EXP,       nullptr,                60,    90,   4500, -1, -1, -1)
