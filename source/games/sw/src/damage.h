@@ -74,7 +74,7 @@ DAMAGE_ENTRY(DMG_NAPALM_EXP,      nullptr,                70,    80,   3200, -1,
 DAMAGE_ENTRY(DMG_SKULL_EXP,       nullptr,                50,    65,   4500, -1, -1, -1)
 DAMAGE_ENTRY(DMG_BASIC_EXP,       nullptr,                13,    22,   1000, -1, -1, -1)
 DAMAGE_ENTRY(DMG_GRENADE_EXP,     nullptr,                110,  130,   4500, -1, -1, -1)
-DAMAGE_ENTRY(DMG_MINE_EXP,        nullptr,                110,  110,   1600, -1, -1, -1)
+DAMAGE_ENTRY(DMG_MINE_EXP,        nullptr,                110,  110,   2400, -1, -1, -1)
 DAMAGE_ENTRY(DMG_MINE_SHRAP,      nullptr,                18,    27,      0, -1, -1, -1)
 DAMAGE_ENTRY(DMG_MICRO_EXP,       nullptr,                60,    90,   4500, -1, -1, -1)
 DAMAGE_ENTRY_WPN(DMG_NUCLEAR_EXP, nullptr,                 0,   800,  30000, -1, -1, -1,  1, 5)

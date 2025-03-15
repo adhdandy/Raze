@@ -524,7 +524,7 @@ void CoolgCommon(DSWActor* actor)
 //---------------------------------------------------------------------------
 
 int SetupCoolg(DSWActor* actor)
-{   
+{
     ANIMATOR DoActorDecide;
 
     if (!(actor->spr.cstat & CSTAT_SPRITE_RESTORE))

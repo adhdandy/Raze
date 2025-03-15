@@ -3369,7 +3369,7 @@ bool pRailReloadTest(DPanelSprite* psp);
 
 #define Rail_BEAT_RATE 24
 #define Rail_ACTION_RATE 3  // !JIM! Was 10
-#define Rail_CHARGE_RATE 3
+#define Rail_CHARGE_RATE 0
 
 PANEL_STATE ps_PresentRail[] =
 {
