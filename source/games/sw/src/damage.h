@@ -48,7 +48,7 @@ DAMAGE_ENTRY_WPN(WPN_UZI,         InitWeaponUzi,         5,     7,   0, 200,  1,
 DAMAGE_ENTRY_WPN(WPN_MICRO,       InitWeaponMicro,      15,    30,   0,  50,  1, -1,  5, 5)
 DAMAGE_ENTRY_WPN(WPN_GRENADE,     InitWeaponGrenade,    20,    30,   0,  50,  1, -1,  6, 8)
 DAMAGE_ENTRY_WPN(WPN_MINE,        InitWeaponMine,        5,    10,   0,  20,  1, -1,  5, -1)
-DAMAGE_ENTRY_WPN(WPN_RAIL,        InitWeaponRail,       50,    50,   0,  40,  1, -1,  10, 10)
+DAMAGE_ENTRY_WPN(WPN_RAIL,        InitWeaponRail,       50,    50,   0,  20,  1, -1,  10, 10)
 DAMAGE_ENTRY_WPN(WPN_HOTHEAD,     InitWeaponHothead,    10,    25,   0,  80,  1, -1,  30, 60)
 DAMAGE_ENTRY_WPN(WPN_HEART,       InitWeaponHeart,      75,   100,   0,   5,  1, -1,  1, 6)
 

@@ -408,7 +408,7 @@ weapon 9
 {
     name "$TXTS_WEAP9"
     ammoname "$TXTS_AMMO9"
-    maxammo 20
+    maxammo 30
     mindamage 40
     maxdamage 60
     pickup 10
