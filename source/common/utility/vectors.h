@@ -94,6 +94,8 @@ struct TVector2
 	{
 	}
 
+	constexpr TVector2(std::nullptr_t nul) = delete;
+
 	template<typename U>
 	constexpr explicit operator TVector2<U> () const noexcept {
 		return TVector2<U>(static_cast<U>(X), static_cast<U>(Y));
@@ -542,6 +544,12 @@ struct TVector3
 	constexpr Vector2 XY() const
 	{
 		return Vector2(X, Y);
+	}
+
+	void SetXY(const Vector2 &v)
+	{
+		X = v.X;
+		Y = v.Y;
 	}
 
 	// Add a 3D vector and a 2D vector.

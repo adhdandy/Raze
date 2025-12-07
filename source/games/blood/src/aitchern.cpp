@@ -82,7 +82,7 @@ void tchernobogBurnSeqCallback(int, DBloodActor* actor)
 		pos2 += actor->vel * nDist * (65536. / 0x1aaaaa);
 
 		DVector3 tvec = pos;
-		tvec.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		tvec += actor->spr.Angles.Yaw.ToVector() * nDist;
 		tvec.Z += actor->dudeSlope * nDist;
 
 		double tsr = nDist * 9.23828125;
@@ -103,8 +103,7 @@ void tchernobogBurnSeqCallback(int, DBloodActor* actor)
 				if (cansee(pos, actor->sector(), pos2, actor2->sector()))
 				{
 					nClosest = nDist2;
-					Aim.XY() = nAngle.ToVector();
-					Aim.Z = tz1 / nDist;
+					Aim = DVector3(nAngle.ToVector(), tz1 / nDist);
 				}
 				else
 					Aim.Z = tz1 / nDist;
@@ -138,7 +137,7 @@ void tchernobogBurnSeqCallback2(int, DBloodActor* actor)
 		pos2 += actor->vel * nDist * (65536. / 0x1aaaaa);
 
 		DVector3 tvec = pos;
-		tvec.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		tvec += actor->spr.Angles.Yaw.ToVector() * nDist;
 		tvec.Z += actor->dudeSlope * nDist;
 
 		double tsr = nDist * 9.23828125;
@@ -159,8 +158,7 @@ void tchernobogBurnSeqCallback2(int, DBloodActor* actor)
 				if (cansee(pos, actor->sector(), pos2, actor2->sector()))
 				{
 					nClosest = nDist2;
-					Aim.XY() = nAngle.ToVector();
-					Aim.Z = -tz1 / nDist;
+					Aim = DVector3(nAngle.ToVector(), -tz1 / nDist);
 				}
 				else
 					Aim.Z = -tz1 / nDist;

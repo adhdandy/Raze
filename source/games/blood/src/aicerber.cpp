@@ -67,9 +67,10 @@ void cerberusBiteSeqCallback(int, DBloodActor* actor)
 	if (!actor->ValidateTarget(__FUNCTION__)) return;
 	auto target = actor->GetTarget();
 
-	DVector3 vec;
-	vec.XY() = actor->spr.Angles.Yaw.ToVector() * 64;
-	vec.Z = target->spr.pos.Z - actor->spr.pos.Z;
+	DVector3 vec(
+		actor->spr.Angles.Yaw.ToVector() * 64,
+		target->spr.pos.Z - actor->spr.pos.Z
+	);
 	actFireVector(actor, Cerberus_XYOff, -Cerberus_ZOff, vec, kVectorCerberusHack);
 	actFireVector(actor, -Cerberus_XYOff, 0, vec, kVectorCerberusHack);
 	actFireVector(actor, 0, 0, vec, kVectorCerberusHack);
@@ -99,7 +100,7 @@ void cerberusBurnSeqCallback(int, DBloodActor* actor)
 		pos2 += actor->vel * nDist * (65536. / 0x1aaaaa);
 		
 		DVector3 tvec = pos;
-		tvec.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		tvec += actor->spr.Angles.Yaw.ToVector() * nDist;
 		tvec.Z += actor->dudeSlope * nDist;
 		double tsr = nDist * 9.23828125;
 		double top, bottom;
@@ -117,8 +118,7 @@ void cerberusBurnSeqCallback(int, DBloodActor* actor)
 				if (cansee(pos, actor->sector(), pos2, actor2->sector()))
 				{
 					nClosest = nDist2;
-					Aim.XY() = nAngle.ToVector();
-					Aim.Z = tz1 / nDist;
+					Aim = DVector3(nAngle.ToVector(), tz1 / nDist);
 				}
 				else
 					Aim.Z = tz1 / 64.;
@@ -164,7 +164,7 @@ void cerberusBurnSeqCallback2(int, DBloodActor* actor)
 		pos2 += actor->vel * nDist * (65536. / 0x1aaaaa);
 
 		DVector3 tvec = pos;
-		tvec.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		tvec += actor->spr.Angles.Yaw.ToVector() * nDist;
 		tvec.Z += actor->dudeSlope * nDist;
 
 		double tsr = nDist * 9.23828125;
@@ -187,8 +187,7 @@ void cerberusBurnSeqCallback2(int, DBloodActor* actor)
 				if (cansee(pos, actor->sector(), pos2, actor2->sector()))
 				{
 					nClosest = nDist2;
-					Aim.XY() = nAngle.ToVector();
-					Aim.Z = tz1 / nDist;
+					Aim = DVector3(nAngle.ToVector(), tz1 / nDist);
 				}
 				else
 					Aim.Z = tz1 / 64.;

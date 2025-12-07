@@ -404,7 +404,7 @@ void lotsofstuff(DDukeActor* actor, int n, PClassActor* spawntype)
 void movesector(DDukeActor* const actor, int msindex, DAngle rotation)
 {
 	//T1,T2 and T3 are used for all the sector moving stuff!!!
-	actor->spr.pos.XY() += actor->spr.Angles.Yaw.ToVector() * actor->vel.X;
+	actor->spr.pos += actor->spr.Angles.Yaw.ToVector() * actor->vel.X;
 
 	for(auto& wal : actor->sector()->walls)
 	{
@@ -502,7 +502,7 @@ void movedummyplayers(void)
 			}
 		}
 
-		act->spr.pos.XY() += pact->spr.pos.XY() - pact->opos.XY();
+		act->spr.pos += pact->spr.pos.XY() - pact->opos.XY();
 		SetActor(act, act->spr.pos);
 	}
 }
@@ -852,20 +852,20 @@ void checkdive(DDukeActor* transporter, DDukeActor* transported)
 			}
 			else
 			{
-				transported->spr.pos.XY() += Owner->spr.pos.XY() - transporter->spr.pos.XY();
+				transported->spr.pos += Owner->spr.pos.XY() - transporter->spr.pos.XY();
 				transported->spr.pos.Z = Owner->spr.pos.Z + 16;
 				transported->backupz();
 				ChangeActorSect(transported, Owner->sector());
 			}
 			break;
 		case ST_1_ABOVE_WATER:
-			transported->spr.pos.XY() += Owner->spr.pos.XY() - transporter->spr.pos.XY();
+			transported->spr.pos += Owner->spr.pos.XY() - transporter->spr.pos.XY();
 			transported->spr.pos.Z = Owner->sector()->ceilingz + ll;
 			transported->backupz();
 			ChangeActorSect(transported, Owner->sector());
 			break;
 		case ST_2_UNDERWATER:
-			transported->spr.pos.XY() += Owner->spr.pos.XY() - transporter->spr.pos.XY();
+			transported->spr.pos += Owner->spr.pos.XY() - transporter->spr.pos.XY();
 			transported->spr.pos.Z = Owner->sector()->ceilingz - ll;
 			transported->backupz();
 			ChangeActorSect(transported, Owner->sector());
@@ -873,7 +873,7 @@ void checkdive(DDukeActor* transporter, DDukeActor* transported)
 
 		case ST_160_FLOOR_TELEPORT:
 			if (!(ud.mapflags & MFLAG_ALLSECTORTYPES)) break;
-			transported->spr.pos.XY() += Owner->spr.pos.XY() - transporter->spr.pos.XY();
+			transported->spr.pos += Owner->spr.pos.XY() - transporter->spr.pos.XY();
 			transported->spr.pos.Z = Owner->sector()->ceilingz + ll2;
 			transported->backupz();
 
@@ -1264,7 +1264,7 @@ int movesprite_ex(DDukeActor* actor, const DVector3& change, unsigned int clipty
 		else
 			clipmove(ppos, &dasectp, change.XY() * 0.5, actor->clipdist, 4., 4., cliptype, result);
 	}
-	actor->spr.pos.XY() = ppos.XY();
+	actor->spr.pos.SetXY(ppos.XY());
 
 	if (dasectp != nullptr && dasectp != actor->sector())
 		ChangeActorSect(actor, dasectp);
@@ -1459,7 +1459,7 @@ void move(DDukeActor* actor, DDukePlayer* const p, double pdist)
 				}
 				else
 				{
-					p->vel.XY() *= gs.playerfriction - 0.125;
+					p->vel.SetXY(p->vel.XY() * (gs.playerfriction - 0.125));
 				}
 			}
 			else if (!(actor->flags2 & SFLAG2_FLOATING))
@@ -1619,7 +1619,7 @@ void handle_se00(DDukeActor* actor)
 		if (actor->temp_pos.Y == 0)
 			actor->temp_pos.Y = (actor->spr.pos.XY() - Owner->spr.pos.XY()).Length();
 		actor->vel.X = actor->temp_pos.Y;
-		actor->spr.pos.XY() = Owner->spr.pos.XY();
+		actor->spr.pos.SetXY(Owner->spr.pos.XY());
 		actor->spr.Angles.Yaw += ang_amount * direction;
 		actor->temp_angle += ang_amount * direction;
 	}
@@ -1639,7 +1639,7 @@ void handle_se00(DDukeActor* actor)
 
 				auto result = rotatepoint(Owner->spr.pos.XY(), pact->spr.pos.XY(), ang_amount * direction);
 				p->bobpos += (result - pact->spr.pos.XY());
-				pact->spr.pos.XY() = result;
+				pact->spr.pos.SetXY(result);
 			}
 		}
 		DukeSectIterator itp(actor->sector());
@@ -1783,7 +1783,7 @@ void handle_se14(DDukeActor* actor, bool checkstat, PClassActor* RPG)
 					updatesector(pact->getPosWithOffsetZ(), &sect);
 					if ((sect == nullptr && ud.clipping == 0) || (sect == actor->sector() && p->cursector != actor->sector()))
 					{
-						pact->spr.pos.XY() = actor->spr.pos.XY();
+						pact->spr.pos.SetXY(actor->spr.pos.XY());
 						p->setCursector(actor->sector());
 
 						SetActor(pact, actor->spr.pos);
@@ -1810,7 +1810,7 @@ void handle_se14(DDukeActor* actor, bool checkstat, PClassActor* RPG)
 				if (actor->sector() == pact->sector())
 				{
 					auto result = rotatepoint(actor->spr.pos.XY(), pact->spr.pos.XY(), diffangle);
-					pact->spr.pos.XY() = result + vec;
+					pact->spr.pos.SetXY(result + vec);
 
 					p->bobpos += vec;
 					pact->spr.Angles.Yaw += diffangle;
@@ -1821,7 +1821,7 @@ void handle_se14(DDukeActor* actor, bool checkstat, PClassActor* RPG)
 					}
 					if (pact->spr.extra <= 0)
 					{
-						pact->spr.pos.XY() = pact->spr.pos.XY();
+						pact->spr.pos.SetXY(pact->spr.pos.XY());
 					}
 				}
 			}
@@ -1833,7 +1833,7 @@ void handle_se14(DDukeActor* actor, bool checkstat, PClassActor* RPG)
 				(!iseffector(a2) || a2->spr.lotag == SE_49_POINT_LIGHT || a2->spr.lotag == SE_50_SPOT_LIGHT) &&
 				!islocator(a2))
 			{
-				a2->spr.pos.XY() = rotatepoint(actor->spr.pos.XY(), a2->spr.pos.XY(), diffangle) + vec;
+				a2->spr.pos.SetXY(rotatepoint(actor->spr.pos.XY(), a2->spr.pos.XY(), diffangle) + vec);
 				a2->spr.Angles.Yaw += diffangle;
 
 				if (numplayers > 1)
@@ -1860,7 +1860,7 @@ void handle_se14(DDukeActor* actor, bool checkstat, PClassActor* RPG)
 					updatesector(pact->getPosWithOffsetZ(), &k);
 					if ((k == nullptr && ud.clipping == 0) || (k == actor->sector() && p->cursector != actor->sector()))
 					{
-						pact->spr.pos.XY() = actor->spr.pos.XY();
+						pact->spr.pos.SetXY(actor->spr.pos.XY());
 						pact->backupvec2();
 						p->setCursector(actor->sector());
 
@@ -1965,7 +1965,7 @@ void handle_se30(DDukeActor *actor)
 					updatesector(pact->getPosWithOffsetZ(), &k);
 					if ((k == nullptr && ud.clipping == 0) || (k == actor->sector() && p->cursector != actor->sector()))
 					{
-						pact->spr.pos.XY() = actor->spr.pos.XY();
+						pact->spr.pos.SetXY(actor->spr.pos.XY());
 						p->setCursector(actor->sector());
 
 						SetActor(pact, actor->spr.pos);
@@ -1982,7 +1982,7 @@ void handle_se30(DDukeActor *actor)
 
 			if (pact->sector() == actor->sector())
 			{
-				pact->spr.pos.XY() += vect;
+				pact->spr.pos += vect;
 
 				if (numplayers > 1)
 				{
@@ -2030,7 +2030,7 @@ void handle_se30(DDukeActor *actor)
 						updatesector(pact->getPosWithOffsetZ(), &k);
 						if ((k == nullptr && ud.clipping == 0) || (k == actor->sector() && p->cursector != actor->sector()))
 						{
-							pact->spr.pos.XY() = actor->spr.pos.XY();
+							pact->spr.pos.SetXY(actor->spr.pos.XY());
 							pact->backupvec2();
 
 							p->setCursector(actor->sector());
@@ -2119,7 +2119,7 @@ void handle_se02(DDukeActor* actor)
 
 			if (p->cursector == actor->sector() && p->on_ground)
 			{
-				p->GetActor()->spr.pos.XY() += vect;
+				p->GetActor()->spr.pos += vect;
 				p->bobpos += vect;
 			}
 		}
@@ -2519,7 +2519,11 @@ void handle_se11(DDukeActor *actor)
 		if (actor->temp_data[4] <= -511 || actor->temp_data[4] >= 512)
 		{
 			actor->temp_data[4] = 0;
-			actor->temp_angle = mapangle(actor->temp_angle.Buildang() & 0xffffff00); // Gross hack! What is this supposed to do?
+			// Normalize to avoid getting negative Build angle on CCW rotations
+			int snapped = actor->temp_angle.Normalized360().Buildang();
+			// Quantize to 256-bit increments to prevent vector drift (legacy Build behavior)
+			snapped &= 0xffffff00;
+			actor->temp_angle = mapangle(snapped);
 			movesector(actor, actor->temp_data[1], actor->temp_angle);
 			//SetActor(actor, actor->spr.pos);
 		}
@@ -2833,7 +2837,7 @@ void handle_se17(DDukeActor* actor)
 				const auto p = getPlayer(act3->PlayerIndex());
 
 				act3->opos -= act3->spr.pos;
-				act3->spr.pos.XY() += act2->spr.pos.XY() - actor->spr.pos.XY();
+				act3->spr.pos += act2->spr.pos.XY() - actor->spr.pos.XY();
 				act3->spr.pos.Z += act2->sector()->floorz - sc->floorz;
 				act3->opos += act3->spr.pos;
 
@@ -2854,7 +2858,7 @@ void handle_se17(DDukeActor* actor)
 			else if (act3->spr.statnum != STAT_EFFECTOR)
 			{
 				act3->opos -= act3->spr.pos;
-				act3->spr.pos.XY() += act2->spr.pos.XY() - actor->spr.pos.XY();
+				act3->spr.pos += act2->spr.pos.XY() - actor->spr.pos.XY();
 				act3->spr.pos.Z += act2->sector()->floorz - sc->floorz;
 				act3->opos += act3->spr.pos;
 
@@ -3138,7 +3142,7 @@ void handle_se20(DDukeActor* actor)
 
 			if (p->cursector == actor->sector() && p->on_ground)
 			{
-				pact->spr.pos.XY() += vec;
+				pact->spr.pos += vec;
 				pact->backupvec2();
 				SetActor(pact, pact->spr.pos);
 			}
@@ -3229,7 +3233,7 @@ void handle_se26(DDukeActor* actor)
 	actor->spr.shade++;
 	if (actor->spr.shade > 7)
 	{
-		actor->spr.pos.XY() = actor->temp_pos.XY();
+		actor->spr.pos.SetXY(actor->temp_pos.XY());
 		sc->addfloorz(-((zvel * actor->spr.shade) - zvel));
 		actor->spr.shade = 0;
 	}

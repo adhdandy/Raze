@@ -111,7 +111,7 @@ void ghostBlastSeqCallback(int, DBloodActor* actor)
 		pos2 += actor->vel * nDist * (65536. / 0x1aaaaa);
 
 		DVector3 tvec = pos;
-		tvec.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		tvec += actor->spr.Angles.Yaw.ToVector() * nDist;
 		tvec.Z += actor->dudeSlope * nDist;
 
 		double tsr = nDist * 9.23828125;
@@ -132,8 +132,7 @@ void ghostBlastSeqCallback(int, DBloodActor* actor)
 				if (cansee(pos, actor->sector(), pos2, actor2->sector()))
 				{
 					nClosest = nDist2;
-					Aim.XY() = nAngle.ToVector();
-					Aim.Z = tz1 / nDist;
+					Aim = DVector3(nAngle.ToVector(), tz1 / nDist);
 
 					// This does not make any sense...
 					if (tz1 < -3.2 && tz1 > -48)

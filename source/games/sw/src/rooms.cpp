@@ -168,7 +168,7 @@ void FAFhitscan(const DVector3& start, sectortype* sect, const DVector3& vect, H
         if ((hit.hitWall->cstat & CSTAT_WALL_WARP_HITSCAN))
         {
             // back it up a bit to get a correct warp location
-            hit.hitpos.XY() -= vect.XY() * (1 / 512.);
+            hit.hitpos -= vect.XY() * (1 / 512.);
 
             // warp to new x,y,z, sectnum
             if (Warp(hit.hitpos, &hit.hitSector))
@@ -277,7 +277,7 @@ bool FAFcansee(const DVector3& start, sectortype* sects, const DVector3& end, se
     DVector3 diff = end - start;
     DAngle ang = diff.Angle();
     DVector3 vect; 
-    vect.XY() = ang.ToVector() * 1024;
+    vect.SetXY(ang.ToVector() * 1024);
     double dist = diff.XY().Length();
 
     // get x,y,z, vectors

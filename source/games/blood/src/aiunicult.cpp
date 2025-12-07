@@ -211,7 +211,7 @@ void genDudeAttack1(int, DBloodActor* actor)
 	if (actor->GetTarget() == nullptr) return;
 
 	DVector3 dv;
-	actor->vel.XY().Zero();
+	actor->vel.SetXY(DVector2(0, 0));
 
 	GENDUDEEXTRA* pExtra = &actor->genDudeExtra;
 	int dispersion = pExtra->baseDispersion;
@@ -1772,14 +1772,15 @@ void dudeLeechOperate(DBloodActor* actor, const EVENT& event)
 
 			if (nDist != 0 && cansee(DVector3(actor->spr.pos.XY(), top), actor->sector(), atpos, actTarget->sector()))
 			{
-				atpos.XY() += actTarget->vel.XY() * nDist * 0.0375;
+				atpos += actTarget->vel.XY() * nDist * 0.0375;
 
 				auto angBak = actor->spr.Angles.Yaw;
 				actor->spr.Angles.Yaw = (atpos - actor->spr.pos.XY()).Angle();
-				DVector3 dv;
-				dv.XY() = actor->spr.Angles.Yaw.ToVector() * 64;
 				double tz = actTarget->spr.pos.Z - (actTarget->spr.scale.Y * pDudeInfo->aimHeight);
-				double dz = (tz - top - 1) / nDist * 4;
+				DVector3 dv(
+					actor->spr.Angles.Yaw.ToVector() * 64,
+					(tz - top - 1) / nDist * 4
+				);
 				int nMissileType = kMissileLifeLeechAltNormal + (actor->xspr.data3 ? 1 : 0);
 				int t2;
 
@@ -1854,7 +1855,7 @@ DBloodActor* genDudeSpawn(DBloodActor* source, DBloodActor* actor, double nDist)
 	auto pos = actor->spr.pos;
 	if (nDist > 0)
 	{
-		pos.XY() += actor->spr.Angles.Yaw.ToVector() * nDist;
+		pos += actor->spr.Angles.Yaw.ToVector() * nDist;
 	}
 
 	spawned->spr.type = nType; 

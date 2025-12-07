@@ -243,7 +243,7 @@ void RestartPlayer(DExhumedPlayer* const pPlayer)
 	}
 	else
 	{
-        pPlayerActor->spr.pos.XY() = pPlayer->sPlayerSave.pos.XY();
+        pPlayerActor->spr.pos.SetXY(pPlayer->sPlayerSave.pos.XY());
 		pPlayerActor->spr.pos.Z = pPlayer->sPlayerSave.pSector->floorz;
 		pPlayerActor->spr.Angles.Yaw = pPlayer->sPlayerSave.nAngle;
         ChangeActorSect(pPlayerActor, pPlayer->sPlayerSave.pSector);
@@ -436,7 +436,7 @@ void SetPlayerMummified(DExhumedPlayer* const pPlayer, int bIsMummified)
 {
     const auto pPlayerActor = pPlayer->GetActor();
 
-    pPlayerActor->vel.XY().Zero();
+    pPlayerActor->vel.SetXY(DVector2(0, 0));
 
     if ((pPlayer->bIsMummified = bIsMummified))
     {
@@ -1092,8 +1092,7 @@ static void updatePlayerVelocity(DExhumedPlayer* const pPlayer)
 
         for (int i = 0; i < 4; i++)
         {
-            pPlayerActor->vel.XY() += inputvect;
-            pPlayerActor->vel.XY() *= 0.953125;
+            pPlayerActor->vel.SetXY((pPlayerActor->vel.XY() + inputvect) * 0.953125);
             pPlayer->RollVel += pInput->vel.Y * 0.375;
             pPlayer->RollVel *= 0.953125;
         }
@@ -1101,7 +1100,7 @@ static void updatePlayerVelocity(DExhumedPlayer* const pPlayer)
 
     if (pPlayerActor->vel.XY().Length() < 0.09375 && !pPlayerActor->vel.XY().isZero())
     {
-        pPlayerActor->vel.XY().Zero();
+        pPlayerActor->vel.SetXY(DVector2(0, 0));
         pPlayer->nIdxBobZ = 0;
         pPlayer->RollVel = 0;
     }
@@ -1584,7 +1583,7 @@ static void updatePlayerFloorActor(DExhumedPlayer* const pPlayer)
 
     const auto pPlayerActor = pPlayer->GetActor();
     const auto pPlayerSect = pPlayerActor->sector();
-    pFloorActor->spr.pos.XY() = pPlayerActor->spr.pos.XY();
+    pFloorActor->spr.pos.SetXY(pPlayerActor->spr.pos.XY());
     pFloorActor->spr.pos.Z = pPlayerSect->floorz;
 
     if (pFloorActor->sector() != pPlayerSect)
@@ -1669,7 +1668,7 @@ static void doPlayerFloorDamage(DExhumedPlayer* const pPlayer, const double nSta
     if (nStartVelZ < (6500 / 256.))
         return;
 
-    pPlayerActor->vel.XY() *= 0.25;
+    pPlayerActor->vel.SetXY(pPlayerActor->vel.XY() * 0.25);
     runlist_DamageEnemy(pPlayerActor, nullptr, int(((nStartVelZ * 256) - 6500) * (1. / 128.)) + 10);
 
     if (pPlayer->nHealth <= 0)
@@ -1785,7 +1784,7 @@ static bool doPlayerInput(DExhumedPlayer* const pPlayer)
         if (inside(pPlayerActor->spr.pos.X, pPlayerActor->spr.pos.Y, pPlayerActor->sector()) != 1)
         {
             ChangeActorSect(pPlayerActor, spr_sect);
-            pPlayerActor->spr.pos.XY() = pPlayerActor->opos.XY();
+            pPlayerActor->spr.pos.SetXY(pPlayerActor->opos.XY());
 
             if (nStartVelZ < pPlayerActor->vel.Z)
                 pPlayerActor->vel.Z = nStartVelZ;
@@ -1996,11 +1995,12 @@ static void doPlayerDeathPitch(DExhumedPlayer* const pPlayer)
     }
     else
     {
+        static const DAngle maxPitch = -maphoriz(108);
         pPlayerActor->spr.Angles.Pitch -= maphoriz(pPlayer->dVertPan);
 
-        if (pPlayerActor->spr.Angles.Pitch.Degrees() <= -40.156)
+        if (pPlayerActor->spr.Angles.Pitch <= maxPitch)
         {
-            pPlayerActor->spr.Angles.Pitch = DAngle::fromDeg(-40.156);
+            pPlayerActor->spr.Angles.Pitch = maxPitch;
         }
         else if (pPlayerActor->spr.Angles.Pitch.Sgn() >= 0 && !(pPlayerActor->sector()->Flag & kSectUnderwater))
         {
